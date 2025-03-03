@@ -10,61 +10,61 @@ import morgan from "morgan";
 import helmet from "helmet";
 
 class App {
-    public port: number;
-    public app: Application;
-    private mongoDBUri: string;
+	public port: number;
+	public app: Application;
+	private mongoDBUri: string;
 
-    constructor(routes: Routes[]) {
-        this.port = (PORT || 8500) as number;
-        this.app = express();
-        this.mongoDBUri = MONGO_URI!;
-        this.connectDatabase();
-        this.initializeMiddlewares();
-        this.initializeRoutes(routes);
-        this.initializeErrorHandling();
-    }
+	constructor(routes: Routes[]) {
+		this.port = (PORT || 8500) as number;
+		this.app = express();
+		this.mongoDBUri = MONGO_URI!;
+		this.connectDatabase();
+		this.initializeMiddlewares();
+		this.initializeRoutes(routes);
+		this.initializeErrorHandling();
+	}
 
-    private initializeMiddlewares = () => {
-        this.app.use(morgan("combined"));
+	private initializeMiddlewares = () => {
+		this.app.use(morgan("combined"));
 
-        this.app.use(express.json());
-        this.app.use(helmet());
-        this.app.use(cors({ origin: ORIGIN, credentials: true }));
-        this.app.use(express.urlencoded({ extended: true }));
-        this.app.use(cookieParser());
-    };
+		this.app.use(express.json());
+		this.app.use(helmet());
+		this.app.use(cors({ origin: ORIGIN, credentials: true }));
+		this.app.use(express.urlencoded({ extended: true }));
+		this.app.use(cookieParser());
+	};
 
-    private initializeRoutes = (routes: Routes[]) => {
-        // routers
-        this.app.get("/", async (req, res) => {
-            res.send("Welcome to Music app API");
-        });
-        routes.forEach(({ router }) => {
-            this.app.use("/", router);
-        });
-    };
+	private initializeRoutes = (routes: Routes[]) => {
+		// routers
+		this.app.get("/", async (req, res) => {
+			res.send("Welcome to Event Centers Management API");
+		});
+		routes.forEach(({ router }) => {
+			this.app.use("/", router);
+		});
+	};
 
-    private connectDatabase = async () => {
-        try {
-            await connectDB(this.mongoDBUri);
-            console.log("Connected to database");
-        } catch (error) {
-            console.error("Failed to connect to database");
-        }
-    };
+	private connectDatabase = async () => {
+		try {
+			await connectDB(this.mongoDBUri);
+			console.log("Connected to database");
+		} catch (error) {
+			console.error("Failed to connect to database");
+		}
+	};
 
-    private initializeErrorHandling = () => {
-        this.app.use(errorMiddleware);
-        this.app.use(notFoundError);
-    };
+	private initializeErrorHandling = () => {
+		this.app.use(errorMiddleware);
+		this.app.use(notFoundError);
+	};
 
-    public startServer = async () => {
-        this.app.listen(this.port, (error) => {
-            if (error) {
-                console.log(`Failed to start server on port ${this.port}`);
-            }
-            console.log(`Server listening on port ${this.port}`);
-        });
-    };
+	public startServer = async () => {
+		this.app.listen(this.port, (error) => {
+			if (error) {
+				console.log(`Failed to start server on port ${this.port}`);
+			}
+			console.log(`Server listening on port ${this.port}`);
+		});
+	};
 }
 export default App;
