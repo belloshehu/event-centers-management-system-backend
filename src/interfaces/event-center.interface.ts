@@ -1,6 +1,15 @@
 import { TimeStamps } from "@/typing/util.typing";
 import { Document, Schema } from "mongoose";
 
+export type EventCenterSupportedEventsTypes =
+	| "wedding"
+	| "birthday"
+	| "conference"
+	| "concert"
+	| "party"
+	| "others"
+	| "training";
+
 export interface IEventCenter extends Document<any>, TimeStamps {
 	name: string;
 	address: string;

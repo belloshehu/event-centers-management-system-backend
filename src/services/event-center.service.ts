@@ -1,10 +1,10 @@
 import HTTPException from "@/exceptions/http.exception";
 import { IEventCenter } from "@/interfaces/event-center.interface";
-import EventCenterModel from "@/models/event-center";
+import EventCenterModel from "@/models/event-center.model";
 import { IEventCenterDataType } from "@/schemas/event-center.validation.schema";
 import { isEmpty } from "@/utils/util";
 import { StatusCodes } from "http-status-codes";
-import UserService from "./user.service";
+import UserService from "@/services/user.service";
 
 class EventCenterService {
 	private eventCenterModel = EventCenterModel;

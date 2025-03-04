@@ -1,3 +1,4 @@
+import { supportedEvents } from "@/constants";
 import {
 	IEventCenter,
 	IEventCenterMethods,
