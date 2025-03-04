@@ -28,6 +28,19 @@ class EventCenterRoutes implements Routes {
 			this.path + "/:id",
 			this.eventCenterController.getEventCenterById
 		);
+		this.router.put(
+			this.path + "/:id",
+			[
+				authMiddleware,
+				validationMiddleware(eventCenterValidationSchema, "body"),
+			],
+			this.eventCenterController.updateEventCenter
+		);
+		this.router.delete(
+			this.path + "/:id",
+			authMiddleware,
+			this.eventCenterController.deleteEventCenter
+		);
 	}
 }
 

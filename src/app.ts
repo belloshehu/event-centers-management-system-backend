@@ -18,6 +18,7 @@ class App {
 		this.port = (PORT || 8500) as number;
 		this.app = express();
 		this.mongoDBUri = MONGO_URI!;
+		console.log(MONGO_URI);
 		this.connectDatabase();
 		this.initializeMiddlewares();
 		this.initializeRoutes(routes);
