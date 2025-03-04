@@ -53,6 +53,7 @@ class EventCenterService {
 		id: string,
 		data: IEventCenterDataType
 	): Promise<IEventCenter> {
+		if (!id) throw new HTTPException(StatusCodes.BAD_REQUEST, "Id is required");
 		if (isEmpty(data))
 			throw new HTTPException(StatusCodes.BAD_REQUEST, "Data is required");
 		const eventCenter = await this.eventCenterModel.findByIdAndUpdate(

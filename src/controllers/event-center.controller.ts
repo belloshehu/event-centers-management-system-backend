@@ -65,6 +65,43 @@ class EventCenterController {
 			next(error);
 		}
 	};
+
+	// update event center
+	public updateEventCenter = async (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) => {
+		try {
+			const eventCenter = await this.eventCenterService.updateEventCenter(
+				req.params.id,
+				req.body
+			);
+			res
+				.status(StatusCodes.OK)
+				.json({ data: eventCenter, message: "Event center updated" });
+		} catch (error) {
+			next(error);
+		}
+	};
+
+	// delete event center
+	public deleteEventCenter = async (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) => {
+		try {
+			const eventCenter = await this.eventCenterService.deleteEventCenter(
+				req.params.id
+			);
+			res
+				.status(StatusCodes.OK)
+				.json({ data: eventCenter, message: "Event center deleted" });
+		} catch (error) {
+			next(error);
+		}
+	};
 }
 
 export default EventCenterController;
