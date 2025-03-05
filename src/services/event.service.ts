@@ -38,7 +38,9 @@ class EventService {
 	async getEventById(id: string): Promise<IEvent> {
 		if (!id) throw new HTTPException(StatusCodes.BAD_REQUEST, "Id is required");
 
-		const event = await this.eventModel.findById(id);
+		const event = await this.eventModel
+			.findById(id)
+			.populate("eventCenter", "name address city state country cost capacity");
 		if (!event)
 			throw new HTTPException(StatusCodes.NOT_FOUND, "Event not found");
 		return event;
