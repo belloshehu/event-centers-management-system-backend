@@ -6,7 +6,7 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
 class EventController {
-	private eventService = new EventService();
+	public eventService = new EventService();
 	private defaultPage = 1; // default page number
 	private defaultLimit = 20; // 20 items per page
 
@@ -55,8 +55,9 @@ class EventController {
 	) => {
 		try {
 			const event = await this.eventService.getEventById(req.params.id);
-			res.status(StatusCodes.OK).json({ data: event });
+			res.status(StatusCodes.OK).json({ data: event, message: "Single event" });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	};
@@ -72,7 +73,9 @@ class EventController {
 				req.params.id,
 				req.body
 			);
-			res.status(StatusCodes.OK).json({ data: event });
+			res
+				.status(StatusCodes.CREATED)
+				.json({ data: event, message: "Updated event" });
 		} catch (error) {
 			next(error);
 		}
@@ -86,7 +89,9 @@ class EventController {
 	) => {
 		try {
 			const event = await this.eventService.deleteEvent(req.params.id);
-			res.status(StatusCodes.OK).json({ data: event });
+			res
+				.status(StatusCodes.NO_CONTENT)
+				.json({ data: event, message: "Deleted event" });
 		} catch (error) {
 			next(error);
 		}

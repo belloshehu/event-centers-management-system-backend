@@ -63,4 +63,5 @@ EventSchema.index(
 	{ unique: true }
 );
 
-export const EventModel = model<IEvent, EventModelType>("Event", EventSchema);
+const EventModel = model<IEvent, EventModelType>("Event", EventSchema);
+export default EventModel;

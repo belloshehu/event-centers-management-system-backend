@@ -25,6 +25,7 @@ class AuthController {
 				.status(StatusCodes.CREATED)
 				.json({ data: { user, ...token }, message: "User logged in" });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	};

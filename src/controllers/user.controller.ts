@@ -4,7 +4,7 @@ import { Response, NextFunction, Request } from "express";
 import { RequestWithUser } from "@/interfaces/auth.interface";
 
 class UserController {
-	private userService = new UserService();
+	public userService = new UserService();
 
 	public updateUser = async (
 		req: RequestWithUser,
@@ -16,6 +16,7 @@ class UserController {
 			const user = await this.userService.updateUser(req.body, id);
 			res.status(StatusCodes.CREATED).json({ data: user });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	};
@@ -25,6 +26,7 @@ class UserController {
 			const users = await this.userService.getUsers();
 			res.status(StatusCodes.OK).json({ data: users, message: "All users" });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	};
