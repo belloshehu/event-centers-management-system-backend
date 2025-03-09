@@ -1,0 +1,61 @@
+import { IEvent } from "@/interfaces/event.interface";
+import { IEventDataType } from "@/schemas/event.validation.schema";
+import { Schema } from "mongoose";
+
+export const mockEvents: IEventDataType[] = [
+	// {
+	// 	name: "Event 1",
+	// 	description: "Event 1 description",
+	// 	startDate: new Date("02-02-2022"),
+	// 	endDate: new Date("01-01-2025"),
+	// 	startTime: "12:00",
+	// 	endTime: "12:00",
+	// 	cost: 1000,
+	// 	images: ["image1.jpg", "image2.jpg"],
+	// 	eventType: "wedding",
+	// 	eventCenter: new Schema.Types.ObjectId("67c597392bf2eba9c9eefba3"),
+	// 	user: new Schema.Types.ObjectId("67c597392bf2eba9c9eefba3"),
+	// 	createdAt: new Date(),
+	// 	updatedAt: new Date(),
+	// },
+	// {
+	// 	name: "Event 1",
+	// 	description: "Event 1 description",
+	// 	startDate: new Date("2022-01-01"),
+	// 	endDate: new Date("2022-02-03"),
+	// 	startTime: "12:00:00",
+	// 	endTime: "12:00:00",
+	// 	cost: 1000,
+	// 	images: ["image1.jpg", "image2.jpg"],
+	// 	eventType: "wedding",
+	// 	eventCenter: new Schema.Types.ObjectId("67c597392bf2eba9c9eefba3"),
+	// 	user: new Schema.Types.ObjectId("67c597392bf2eba9c9eefba3"),
+	// 	createdAt: new Date(),
+	// 	updatedAt: new Date(),
+	// },
+
+	{
+		name: "Event 1",
+		description: "Wedding celebration event between two families",
+		startDate: "2022-01-01",
+		endDate: "2022-02-03",
+		startTime: "12:00:00",
+		endTime: "12:00:00",
+		cost: 1000,
+		images: ["image1.jpg", "image2.jpg"],
+		eventType: "wedding",
+		eventCenter: "60706478aad6c9ad19a31c84",
+	},
+	{
+		name: "Event 2",
+		description: "Wedding celebration event between two families",
+		startDate: "2022-01-01",
+		endDate: "2022-02-03",
+		startTime: "12:00:00",
+		endTime: "12:00:00",
+		cost: 1000,
+		images: ["image1.jpg", "image2.jpg"],
+		eventType: "wedding",
+		eventCenter: "60706478aad6c9ad19a31c84",
+	},
+];

@@ -1,13 +1,14 @@
 import HTTPException from "@/exceptions/http.exception";
 import { IEvent } from "@/interfaces/event.interface";
-import { EventModel } from "@/models/event.model";
+import EventCenterModel from "@/models/event-center.model";
+import EventModel from "@/models/event.model";
 import { IEventCenterDataType } from "@/schemas/event-center.validation.schema";
 import { IEventDataType } from "@/schemas/event.validation.schema";
 import { isEmpty } from "@/utils/util";
 import { StatusCodes } from "http-status-codes";
 
 class EventService {
-	private eventModel = EventModel;
+	public eventModel = EventModel;
 
 	async createEvent(data: IEventDataType, userId: string): Promise<IEvent> {
 		if (isEmpty(userId))
@@ -31,7 +32,11 @@ class EventService {
 			.find()
 			.skip((page - 1) * limit)
 			.limit(limit)
-			.populate("eventCenter", "name address city state country cost capacity"); // populate event center
+			.populate(
+				"eventCenter",
+				"name address city state country cost capacity",
+				EventCenterModel
+			); // populate event center
 	}
 
 	// get single event by id
@@ -40,7 +45,11 @@ class EventService {
 
 		const event = await this.eventModel
 			.findById(id)
-			.populate("eventCenter", "name address city state country cost capacity");
+			.populate(
+				"eventCenter",
+				"name address city state country cost capacity",
+				EventCenterModel
+			);
 		if (!event)
 			throw new HTTPException(StatusCodes.NOT_FOUND, "Event not found");
 		return event;

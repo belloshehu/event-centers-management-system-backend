@@ -2,7 +2,7 @@ import { TimeStamps } from "@/typing/util.typing";
 import { Document, Schema } from "mongoose";
 import { EventCenterSupportedEventsTypes } from "./event-center.interface";
 
-export interface IEvent extends Document<any>, TimeStamps {
+export interface IEvent extends TimeStamps {
 	name: string;
 	description: string;
 	eventCenter: Schema.Types.ObjectId;

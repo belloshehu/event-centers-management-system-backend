@@ -8,7 +8,7 @@ import { Router } from "express";
 class EventRoutes implements Routes {
 	public path = "/events";
 	public router = Router();
-	private eventController = new EventController();
+	public eventController = new EventController();
 
 	constructor() {
 		this.initializeRoutes();

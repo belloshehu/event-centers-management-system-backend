@@ -1,9 +1,9 @@
 import { MONGO_URI, ORIGIN, PORT } from "./config";
 import express, { Application } from "express";
 import { Routes } from "@/interfaces/route.interface";
-import errorMiddleware from "@/middlewares/error.middleware";
-import { notFoundError } from "@/middlewares/notfound.middleware";
-import connectDB from "@/database/connect";
+import errorMiddleware from "./middlewares/error.middleware";
+import { notFoundError } from "./middlewares/notfound.middleware";
+import connectDB from "./database/connect";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
@@ -16,9 +16,8 @@ class App {
 
 	constructor(routes: Routes[]) {
 		this.port = (PORT || 8500) as number;
-		this.app = express();
 		this.mongoDBUri = MONGO_URI!;
-		console.log(MONGO_URI);
+		this.app = express();
 		this.connectDatabase();
 		this.initializeMiddlewares();
 		this.initializeRoutes(routes);
@@ -37,9 +36,7 @@ class App {
 
 	private initializeRoutes = (routes: Routes[]) => {
 		// routers
-		this.app.get("/", async (req, res) => {
-			res.send("Welcome to Event Centers Management API");
-		});
+
 		routes.forEach(({ router }) => {
 			this.app.use("/", router);
 		});
@@ -67,5 +64,9 @@ class App {
 			console.log(`Server listening on port ${this.port}`);
 		});
 	};
+
+	public getServer() {
+		return this.app;
+	}
 }
 export default App;
