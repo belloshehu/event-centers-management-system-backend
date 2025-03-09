@@ -1,10 +1,10 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
 
-import { pathsToModuleNameMapper } from "ts-jest";
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
 const { compilerOptions } = require("./tsconfig.json");
+const { pathsToModuleNameMapper } = require("ts-jest");
 
 export default {
 	preset: "ts-jest",
