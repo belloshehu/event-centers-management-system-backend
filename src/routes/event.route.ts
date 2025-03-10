@@ -1,4 +1,4 @@
-import EventController from "@/controllers/event.ontroller";
+import EventController from "@/controllers/event.controller";
 import { Routes } from "@/interfaces/route.interface";
 import authMiddleware from "@/middlewares/auth.middleware";
 import validationMiddleware from "@/middlewares/validation.middleware";

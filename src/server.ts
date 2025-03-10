@@ -5,6 +5,7 @@ import "dotenv/config";
 import EventCenterRoutes from "@/routes/event-center.route";
 import EventRoutes from "@/routes/event.route";
 import IndexRoute from "./routes/index.route";
+import EntertainerRoutes from "./routes/entertainer.route";
 
 const application = new App([
 	new IndexRoute(),
@@ -12,6 +13,7 @@ const application = new App([
 	new UserRoute(),
 	new EventCenterRoutes(),
 	new EventRoutes(),
+	new EntertainerRoutes(),
 ]);
 
 application.startServer();
