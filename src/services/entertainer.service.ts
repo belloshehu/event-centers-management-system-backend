@@ -1,6 +1,7 @@
 import HTTPException from "@/exceptions/http.exception";
 import { IEntertainer } from "@/interfaces/entertainer.interface";
 import EntertainerModel from "@/models/entertainer.model";
+import UserModel from "@/models/user.model";
 import { EntertainerDataType } from "@/schemas/entertainer.validation.schema";
 import { isEmpty } from "@/utils/util";
 import { StatusCodes } from "http-status-codes";
@@ -36,7 +37,7 @@ class EntertainerService {
 			.find()
 			.skip((page - 1) * limit)
 			.limit(limit)
-			.populate("userId", "name email firstName lastName", EntertainerModel);
+			.populate("userId", "email firstName lastName", UserModel);
 	}
 
 	// get single entertainer by id
@@ -45,7 +46,7 @@ class EntertainerService {
 
 		const entertainer = await this.entertainmentModel
 			.findById(id)
-			.populate("userId", "name email firstName lastName", EntertainerModel);
+			.populate("userId", "name email firstName lastName", UserModel);
 		if (!entertainer)
 			throw new HTTPException(StatusCodes.NOT_FOUND, "Entertainer not found");
 		return entertainer;
