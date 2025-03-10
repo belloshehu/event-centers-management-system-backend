@@ -41,11 +41,52 @@ const EntertainerSchema = new Schema<IEntertainer, EntertainerModelType>(
 			required: [true, "Type is required"],
 			enum: ["music", "comedy", "dance", "dj", "mc", "hypeman", "others"],
 		},
+		address: {
+			type: String,
+			required: [true, "Address is required"],
+			trim: true,
+		},
+		city: {
+			type: String,
+			required: [true, "City is required"],
+			trim: true,
+		},
+		state: {
+			type: String,
+			required: [true, "State is required"],
+			trim: true,
+		},
+		country: {
+			type: String,
+			required: [true, "Country is required"],
+			trim: true,
+		},
+		available_for: {
+			type: [String],
+			required: [true, "Available for is required"],
+		},
+		performance_duration: {
+			type: String,
+			required: [true, "Performance duration is required"],
+		},
+		performance_languages: {
+			type: [String],
+			required: [true, "Performance languages is required"],
+		},
+		availability: {
+			type: String,
+			required: [true, "Availability is required"],
+			enum: ["available", "booked"],
+		},
 	},
 	{ timestamps: true }
 );
 
 EntertainerSchema.index({ userId: 1, email: 1 }, { unique: true });
+
+EntertainerSchema.virtual("full_address").get(function () {
+	return `${this.address}, ${this.city}, ${this.state}, ${this.country}`;
+});
 
 const EntertainerModel = model<IEntertainer, EntertainerModelType>(
 	"Entertainer",

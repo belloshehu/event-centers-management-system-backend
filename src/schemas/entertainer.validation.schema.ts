@@ -1,3 +1,4 @@
+import { suppertedlanguages, supportedEvents } from "@/constants";
 import z from "zod";
 
 export const entertainerValidationSchema = z.object({
@@ -12,5 +13,22 @@ export const entertainerValidationSchema = z.object({
 		.min(11, "Contact number must be at least 11 characters long"),
 	contact_email: z.string().email(),
 	type: z.enum(["music", "comedy", "dance", "dj", "mc", "hypeman", "others"]),
+	address: z.string().min(10, "Address must be at least 10 characters long"),
+	city: z.string().min(3, "City must be at least 3 characters long"),
+	state: z.string().min(3, "State must be at least 3 characters long"),
+	country: z.string().min(3, "Country must be at least 3 characters long"),
+	available_for: z
+		.array(z.enum(supportedEvents as [string]))
+		.min(1, "At least one event type is required"),
+	performance_duration: z
+		.string()
+		.min(
+			2,
+			"Performance duration in  minute must be at least 2 characters long"
+		),
+	performance_languages: z
+		.array(z.enum(suppertedlanguages as [string]))
+		.min(1, "At least one language is required"),
+	availability: z.enum(["available", "booked"]),
 });
 export type EntertainerDataType = z.infer<typeof entertainerValidationSchema>;
