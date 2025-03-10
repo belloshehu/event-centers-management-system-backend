@@ -7,3 +7,12 @@ export const supportedEvents = [
 	"others",
 	"training",
 ];
+
+export const suppertedlanguages = [
+	"english",
+	"yoruba",
+	"igbo",
+	"hausa",
+	"others",
+	"urobo",
+];

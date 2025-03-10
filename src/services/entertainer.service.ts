@@ -35,14 +35,17 @@ class EntertainerService {
 		return await this.entertainmentModel
 			.find()
 			.skip((page - 1) * limit)
-			.limit(limit);
+			.limit(limit)
+			.populate("userId", "name email firstName lastName", EntertainerModel);
 	}
 
 	// get single entertainer by id
 	async getEntertainerById(id: string): Promise<IEntertainer> {
 		if (!id) throw new HTTPException(StatusCodes.BAD_REQUEST, "Id is required");
 
-		const entertainer = await this.entertainmentModel.findById(id);
+		const entertainer = await this.entertainmentModel
+			.findById(id)
+			.populate("userId", "name email firstName lastName", EntertainerModel);
 		if (!entertainer)
 			throw new HTTPException(StatusCodes.NOT_FOUND, "Entertainer not found");
 		return entertainer;
@@ -61,7 +64,6 @@ class EntertainerService {
 			data,
 			{ new: true }
 		);
-		console.log(entertainer);
 		if (!entertainer)
 			throw new HTTPException(StatusCodes.NOT_FOUND, "Entertainer not found");
 		return entertainer;
