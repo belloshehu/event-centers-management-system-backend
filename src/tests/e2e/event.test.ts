@@ -101,7 +101,6 @@ describe("Event routes", () => {
 				.put(`${eventRoute.path}/${eventId}`)
 				.send({ ...mockEvents[0], name: "Aliyu's wedding" })
 				.set("Authorization", `Bearer ${token}`);
-
 			expect(response.status).toBe(StatusCodes.CREATED);
 			expect(response.body.message).toBe("Updated event");
 		});
