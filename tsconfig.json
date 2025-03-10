@@ -4,6 +4,11 @@
 		"rootDir": "./src",
 		"forceConsistentCasingInFileNames": true,
 		"baseUrl": ".",
+		"module": "commonjs",
+		"target": "es6",
+		"moduleResolution": "node",
+		"strict": true,
+		"noImplicitAny": true,
 		"paths": {
 			"@/*": ["./src/*"],
 			"@errors/*": ["src/errors/*"]

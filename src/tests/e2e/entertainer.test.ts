@@ -2,13 +2,13 @@ import App from "@/app";
 import mongoose from "mongoose";
 import request from "supertest";
 import EntertainerRoutes from "@/routes/entertainer.route";
-import { MongoMemoryServer } from "mongodb-memory-server";
 import AuthRoute from "@/routes/auth.route";
 import { StatusCodes } from "http-status-codes";
+import { Application } from "express";
 
 let token = "";
 let entertainerId = "";
-let app = null;
+let app: Application;
 
 const entertainerPath = "/entertainers";
 const authPath = "/auth";

@@ -1,9 +1,10 @@
 import request from "supertest";
 import App from "@/app";
 import IndexRoute from "@/routes/index.route";
+import { Application } from "express";
 const mongoose = require("mongoose");
 
-let app = null;
+let app: Application;
 beforeAll(async () => {
 	app = new App([new IndexRoute()]).getServer();
 	mongoose
@@ -11,7 +12,7 @@ beforeAll(async () => {
 		.then(() => {
 			console.log("Connected to test database");
 		})
-		.catch((error) => {
+		.catch((error: any) => {
 			console.log("Test Databse Error: " + error);
 		});
 });

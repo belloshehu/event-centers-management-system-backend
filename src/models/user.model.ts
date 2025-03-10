@@ -61,7 +61,7 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.getJWTToken = function (): TokenDataType {
 	const expiresIn = 60 * 60 * 2;
-	const token = jwt.sign({ _id: this._id }, JWT_SECRET, {
+	const token = jwt.sign({ _id: this._id }, JWT_SECRET as string, {
 		expiresIn, // two hours
 	});
 	return { token, expiresIn };

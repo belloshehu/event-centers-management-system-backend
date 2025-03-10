@@ -7,46 +7,43 @@ import "dotenv/config";
 import { Routes } from "@/interfaces/route.interface";
 import { StatusCodes } from "http-status-codes";
 import { mockEvents } from "@/constants/mocks/event.mock";
+import { Application } from "express";
 
-let app = null;
+let app: Application;
 
 describe("Event routes", () => {
 	let token = "";
 	let eventId = "";
-	let eventRoute: Routes = null;
-	let authRoute: Routes = null;
+	let eventPath = "/events";
+	let authPath = "/auth";
 
 	beforeAll(async () => {
-		eventRoute = new EventRoutes();
-		authRoute = new AuthRoute();
 		app = new App([new EventRoutes(), new AuthRoute()]).getServer();
 		mongoose
 			.connect("mongodb://localhost/test_database")
 			.then(() => {
 				console.log("Connected to test database");
 			})
-			.catch((error) => {
+			.catch((error: any) => {
 				console.log("Test Databse Error: " + error);
 			});
 	});
 
 	describe("POST /user", () => {
 		it("should register a new a new user", async () => {
-			const response = await request(app)
-				.post(`${authRoute.path}/signup`)
-				.send({
-					email: "belloshehu1@gmail.com",
-					password: "password@123",
-					passwordRepeat: "password@123",
-					firstName: "Bello",
-					lastName: "Shehu",
-					role: "user",
-				});
+			const response = await request(app).post(`${authPath}/signup`).send({
+				email: "belloshehu1@gmail.com",
+				password: "password@123",
+				passwordRepeat: "password@123",
+				firstName: "Bello",
+				lastName: "Shehu",
+				role: "user",
+			});
 			expect(response.status).toBe(201);
 		});
 
 		it("should authenticate user and return token", async () => {
-			const response = await request(app).post(`${authRoute.path}/login`).send({
+			const response = await request(app).post(`${authPath}/login`).send({
 				email: "belloshehu1@gmail.com",
 				password: "password@123",
 			});
@@ -58,7 +55,7 @@ describe("Event routes", () => {
 	describe("POST /events", () => {
 		it("should create a new event", async () => {
 			const response = await request(app)
-				.post(eventRoute.path)
+				.post(eventPath)
 				.send({
 					name: "Event 1",
 					description: "Wedding celebration event between two families",
@@ -82,7 +79,7 @@ describe("Event routes", () => {
 
 	describe("GET /events", () => {
 		it("should return 200 and all events", async () => {
-			const response = await request(app).get(eventRoute.path);
+			const response = await request(app).get(eventPath);
 			expect(response.status).toBe(200);
 			expect(response.body).toHaveProperty("data");
 			expect(response.body.message).toBe("All events list");
@@ -98,7 +95,7 @@ describe("Event routes", () => {
 	describe("UPDATE /events", () => {
 		it("should return 201 and updated event", async () => {
 			const response = await request(app)
-				.put(`${eventRoute.path}/${eventId}`)
+				.put(`${eventPath}/${eventId}`)
 				.send({ ...mockEvents[0], name: "Aliyu's wedding" })
 				.set("Authorization", `Bearer ${token}`);
 			expect(response.status).toBe(StatusCodes.CREATED);
@@ -109,7 +106,7 @@ describe("Event routes", () => {
 	describe("DELETE /events", () => {
 		it("should return 204 and deleted event", async () => {
 			const response = await request(app)
-				.delete(`${eventRoute.path}/${eventId}`)
+				.delete(`${eventPath}/${eventId}`)
 				.set("Authorization", `Bearer ${token}`);
 			expect(response.status).toBe(StatusCodes.NO_CONTENT);
 		});
