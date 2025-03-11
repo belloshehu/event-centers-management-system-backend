@@ -78,6 +78,31 @@ const EntertainerSchema = new Schema<IEntertainer, EntertainerModelType>(
 			required: [true, "Availability is required"],
 			enum: ["available", "booked"],
 		},
+		price: {
+			type: Number,
+			required: [true, "Price is required"],
+		},
+		currency: {
+			type: String,
+			required: [true, "Currency is required"],
+			enum: [
+				"NGN",
+				"USD",
+				"EUR",
+				"GBP",
+				"CAD",
+				"AUD",
+				"ZAR",
+				"GHS",
+				"KES",
+				"SAR",
+			],
+			default: "NGN",
+		},
+		rating: {
+			type: Number,
+			required: false,
+		},
 	},
 	{ timestamps: true }
 );

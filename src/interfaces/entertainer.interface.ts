@@ -17,6 +17,9 @@ export interface IEntertainer extends Document<any>, TimeStamps {
 	performance_duration: string;
 	performance_languages: string[];
 	availability: "available" | "booked";
+	price: number;
+	currency: "NGN" | "USD";
+	rating: number;
 }
 
 export interface IEntertainerMethods {
