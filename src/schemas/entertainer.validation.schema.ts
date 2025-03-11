@@ -30,5 +30,18 @@ export const entertainerValidationSchema = z.object({
 		.array(z.enum(suppertedlanguages as [string]))
 		.min(1, "At least one language is required"),
 	availability: z.enum(["available", "booked"]),
+	price: z.number().min(0, "Price must be greater than 0"),
+	currency: z.enum([
+		"NGN",
+		"USD",
+		"EUR",
+		"GBP",
+		"CAD",
+		"AUD",
+		"ZAR",
+		"GHS",
+		"KES",
+		"SAR",
+	]),
 });
 export type EntertainerDataType = z.infer<typeof entertainerValidationSchema>;
