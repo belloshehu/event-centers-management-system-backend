@@ -21,11 +21,8 @@ export const entertainerValidationSchema = z.object({
 		.array(z.enum(supportedEvents as [string]))
 		.min(1, "At least one event type is required"),
 	performance_duration: z
-		.string()
-		.min(
-			2,
-			"Performance duration in  minute must be at least 2 characters long"
-		),
+		.number()
+		.min(30, "Performance duration must be at least 30 minutes long"),
 	performance_languages: z
 		.array(z.enum(suppertedlanguages as [string]))
 		.min(1, "At least one language is required"),

@@ -16,14 +16,14 @@ const authPath = "/auth";
 describe("Entertainer", () => {
 	beforeAll(async () => {
 		app = new App([new EntertainerRoutes(), new AuthRoute()]).getServer();
-		mongoose
-			.connect("mongodb://localhost/test_database")
-			.then(() => {
-				console.log("Connected to test database");
-			})
-			.catch((error) => {
-				console.log("Test Databse Error: " + error);
-			});
+		// mongoose
+		// 	.connect("mongodb://localhost/test_database")
+		// 	.then(() => {
+		// 		console.log("Connected to test database");
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log("Test Databse Error: " + error);
+		// 	});
 	});
 
 	describe("AUTH routes", () => {

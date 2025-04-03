@@ -78,6 +78,29 @@ class EntertainerService {
 			throw new HTTPException(StatusCodes.NOT_FOUND, "Entertainer not found");
 		return entertainer;
 	}
+
+	// book entertainer
+	async bookEntertainer(entertainerId: string): Promise<IEntertainer> {
+		if (!entertainerId)
+			throw new HTTPException(
+				StatusCodes.BAD_REQUEST,
+				"Entertainer Id is required"
+			);
+
+		const entertainer = await this.entertainmentModel.findById(entertainerId);
+
+		if (!entertainer)
+			throw new HTTPException(StatusCodes.NOT_FOUND, "Entertainer not found");
+
+		if (entertainer.availability === "booked")
+			throw new HTTPException(
+				StatusCodes.BAD_REQUEST,
+				"Entertainer is already booked"
+			);
+		entertainer.availability = "booked";
+		await entertainer.save();
+		return entertainer;
+	}
 }
 
 export default EntertainerService;

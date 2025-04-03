@@ -7,7 +7,8 @@ export const eventCenterValidationSchema = z.object({
 	state: z.string(),
 	country: z.string(),
 	capacity: z.number().min(20, "Capacity must be at least 20"),
-	price: z.number(),
+	price: z.number().min(0, "Price must be at least 0"),
+	currency: z.enum(["NGN", "USD"]),
 	description: z
 		.string()
 		.min(20, "Description must be at least 20 characters long"),

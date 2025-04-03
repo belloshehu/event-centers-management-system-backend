@@ -55,6 +55,11 @@ const EventSchema = new Schema<IEvent, EventModelType>(
 			type: String,
 			required: [true, "Event Type is required"],
 		},
+		entertainers: {
+			type: [Schema.Types.ObjectId],
+			ref: "Entertainer",
+			required: false,
+		},
 	},
 	{ timestamps: true }
 );
