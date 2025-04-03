@@ -7,14 +7,14 @@ const mongoose = require("mongoose");
 let app: Application;
 beforeAll(async () => {
 	app = new App([new IndexRoute()]).getServer();
-	mongoose
-		.connect("mongodb://localhost/test_database")
-		.then(() => {
-			console.log("Connected to test database");
-		})
-		.catch((error: any) => {
-			console.log("Test Databse Error: " + error);
-		});
+	// mongoose
+	// 	.connect("mongodb://localhost/test_database")
+	// 	.then(() => {
+	// 		console.log("Connected to test database");
+	// 	})
+	// 	.catch((error: any) => {
+	// 		console.log("Test Databse Error: " + error);
+	// 	});
 });
 afterAll(async () => {
 	await mongoose.connection.dropDatabase();

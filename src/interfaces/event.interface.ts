@@ -11,7 +11,9 @@ export interface IEvent extends TimeStamps {
 	startTime: string;
 	endTime: string;
 	cost?: number;
+	currency?: string;
 	images: string[];
 	user: Schema.Types.ObjectId;
 	eventType: EventCenterSupportedEventsTypes;
+	entertainers?: Schema.Types.ObjectId[];
 }

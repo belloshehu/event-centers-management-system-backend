@@ -66,7 +66,7 @@ const EntertainerSchema = new Schema<IEntertainer, EntertainerModelType>(
 			required: [true, "Available for is required"],
 		},
 		performance_duration: {
-			type: String,
+			type: Number,
 			required: [true, "Performance duration is required"],
 		},
 		performance_languages: {
@@ -76,7 +76,7 @@ const EntertainerSchema = new Schema<IEntertainer, EntertainerModelType>(
 		availability: {
 			type: String,
 			required: [true, "Availability is required"],
-			enum: ["available", "booked"],
+			enum: ["available", "booked", "unavailable"],
 		},
 		price: {
 			type: Number,
@@ -99,18 +99,26 @@ const EntertainerSchema = new Schema<IEntertainer, EntertainerModelType>(
 			],
 			default: "NGN",
 		},
-		rating: {
-			type: Number,
-			required: false,
-		},
 	},
-	{ timestamps: true }
+	{ timestamps: true, toJSON: { virtuals: true } }
+	// set this to use virtual below
 );
 
 EntertainerSchema.index({ userId: 1, email: 1 }, { unique: true });
 
 EntertainerSchema.virtual("full_address").get(function () {
 	return `${this.address}, ${this.city}, ${this.state}, ${this.country}`;
+});
+
+EntertainerSchema.virtual("rating").get(function async() {
+	return 4;
+});
+
+EntertainerSchema.virtual("reviews", {
+	ref: "Review",
+	localField: "_id",
+	foreignField: "entertainerId",
+	justOne: false,
 });
 
 const EntertainerModel = model<IEntertainer, EntertainerModelType>(

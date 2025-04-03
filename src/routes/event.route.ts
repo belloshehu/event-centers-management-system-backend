@@ -34,7 +34,7 @@ class EventRoutes implements Routes {
 		// delete event route
 		this.router.delete(
 			this.path + "/:id",
-			authMiddleware,
+			[authMiddleware],
 			this.eventController.deleteEvent
 		);
 	}

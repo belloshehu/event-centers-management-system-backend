@@ -2,7 +2,7 @@ import { Model, Schema, model } from "mongoose";
 import { IUser } from "../interfaces/user.interface";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { JWT_SECRET } from "../config";
+import { JWT_SECRET, JWT_COOKIE_LIFETIME } from "../config";
 import { IUserMethodsTypes, TokenDataType } from "../interfaces/auth.interface";
 
 type UserModelType = Model<IUser, {}, IUserMethodsTypes>;
@@ -60,7 +60,7 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.getJWTToken = function (): TokenDataType {
-	const expiresIn = 60 * 60 * 2;
+	const expiresIn = Date.now() + parseInt(JWT_COOKIE_LIFETIME!); // 24 hours
 	const token = jwt.sign({ _id: this._id }, JWT_SECRET as string, {
 		expiresIn, // two hours
 	});

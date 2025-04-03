@@ -18,6 +18,7 @@ export interface IEventCenter extends Document<any>, TimeStamps {
 	country: string;
 	capacity: number;
 	price: number;
+	currency: "NGN" | "USD";
 	description: string;
 	images: string[];
 	userId: Schema.Types.ObjectId;

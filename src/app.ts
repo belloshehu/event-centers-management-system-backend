@@ -26,7 +26,6 @@ class App {
 
 	private initializeMiddlewares = () => {
 		this.app.use(morgan("combined"));
-
 		this.app.use(express.json());
 		this.app.use(helmet());
 		this.app.use(cors({ origin: ORIGIN, credentials: true }));

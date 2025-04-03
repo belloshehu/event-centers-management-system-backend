@@ -7,6 +7,7 @@ config({ path: `.env.${process.env.NODE_ENV || "development"}.local` });
 export const {
 	PORT,
 	JWT_LIFETIME,
+	JWT_COOKIE_LIFETIME,
 	JWT_SECRET,
 	ORIGIN,
 	MONGO_URI,

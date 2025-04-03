@@ -14,7 +14,7 @@ export interface IEntertainer extends Document<any>, TimeStamps {
 	country: string;
 	type: "music" | "comedy" | "dance" | "dj" | "mc" | "hypeman" | "others";
 	available_for: string[];
-	performance_duration: string;
+	performance_duration: number;
 	performance_languages: string[];
 	availability: "available" | "booked";
 	price: number;

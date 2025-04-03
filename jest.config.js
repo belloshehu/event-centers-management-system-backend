@@ -1,7 +1,6 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
 
 import { createRequire } from "module";
-
 const require = createRequire(import.meta.url);
 const { compilerOptions } = require("./tsconfig.json");
 const { pathsToModuleNameMapper } = require("ts-jest");
