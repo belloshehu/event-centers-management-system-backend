@@ -35,9 +35,13 @@ class EntertainerController {
 		next: NextFunction
 	) => {
 		try {
+			const { availability } = req.query;
 			const entertainers = await this.entertainerService.getEntertainers({
 				limit: this.defaultLimit,
 				page: this.defaultPage,
+				filter: {
+					availability: availability as "all" | "available" | "booked",
+				},
 			});
 			res
 				.status(StatusCodes.OK)

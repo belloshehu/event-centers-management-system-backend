@@ -29,12 +29,20 @@ class EntertainerService {
 	async getEntertainers({
 		limit,
 		page,
+		filter,
 	}: {
 		limit: number;
 		page: number;
+		filter?: { availability?: "all" | "available" | "booked" };
 	}): Promise<IEntertainer[]> {
+		// fetch both available and booked entertainers if availability is all
+		const newFilter =
+			filter?.availability === "all"
+				? { $or: [{ availability: "booked" }, { availability: "available" }] }
+				: filter;
+		console.log(newFilter, "newFilter");
 		return await this.entertainmentModel
-			.find()
+			.find(newFilter!)
 			.skip((page - 1) * limit)
 			.limit(limit)
 			.populate("userId", "email firstName lastName", UserModel);
