@@ -1,6 +1,6 @@
 import { RequestWithUser } from "@/interfaces/auth.interface";
 import EventCenterBookingService from "@/services/event-center-booking.service";
-import { NextFunction, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
 class EventCenterBookingController {
@@ -32,14 +32,17 @@ class EventCenterBookingController {
 
 	// get single event center booking by id
 	public getEventCenterBookingById = async (
-		req: RequestWithUser,
+		req: Request<{ id: string; eventCenterId: string }>,
 		res: Response,
 		next: NextFunction
 	) => {
 		try {
+			const { id, eventCenterId } = req.params;
+			console.log(id, eventCenterId);
 			const eventCenterBooking =
 				await this.eventCenterBookingService.getEventCenterBookingById(
-					req.params.id
+					id,
+					eventCenterId
 				);
 			res.status(StatusCodes.OK).json({
 				data: eventCenterBooking,

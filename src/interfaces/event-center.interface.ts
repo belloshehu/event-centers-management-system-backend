@@ -25,6 +25,7 @@ export interface IEventCenter extends Document<any>, TimeStamps {
 	supported_events_types: string[];
 	contact_number: string;
 	contact_email: string;
+	status: "active" | "inactive" | "booked" | "pending" | "available";
 }
 
 export interface IEventCenterMethods {

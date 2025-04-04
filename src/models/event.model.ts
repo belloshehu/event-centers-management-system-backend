@@ -64,7 +64,7 @@ const EventSchema = new Schema<IEvent, EventModelType>(
 	{ timestamps: true }
 );
 EventSchema.index(
-	{ eventCenterId: 1, startDate: 1, endDate: 1 },
+	{ eventCenter: 1, startDate: 1, endDate: 1, startTime: 1, endTime: 1 },
 	{ unique: true }
 );
 

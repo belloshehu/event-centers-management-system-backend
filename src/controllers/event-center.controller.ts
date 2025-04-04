@@ -50,14 +50,13 @@ class EventCenterController {
 
 	// get single event center by id
 	public getEventCenterById = async (
-		req: Request,
+		req: Request<{ id: string }>,
 		res: Response,
 		next: NextFunction
 	) => {
 		try {
-			const eventCenter = await this.eventCenterService.getEventCenterById(
-				req.params.id
-			);
+			const { id } = req.params;
+			const eventCenter = await this.eventCenterService.getEventCenterById(id);
 			res
 				.status(StatusCodes.OK)
 				.json({ data: eventCenter, message: "Single event center" });

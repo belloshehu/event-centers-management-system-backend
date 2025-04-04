@@ -52,6 +52,7 @@ class AuthService {
 		}
 		const tokenData = user.getJWTToken();
 		const cookie = this.createCookie(tokenData);
+		console.log(Date.now() - tokenData.expiresIn, "expiresIn");
 		return { user, cookie, token: tokenData };
 	};
 
