@@ -63,6 +63,11 @@ const EventCenterSchema = new Schema<
 			type: [String],
 			required: [true, "Supported events types is required"],
 		},
+		status: {
+			type: String,
+			enum: ["active", "inactive", "booked", "pending", "available"],
+			default: "active",
+		},
 	},
 	{ timestamps: true }
 );

@@ -18,7 +18,6 @@ class EventCenterBookingService {
 	async createEventCenterBooking(
 		data: IEventCenterBookingDataType
 	): Promise<IEventCenterBooking> {
-		console.log(data);
 		if (isEmpty(data))
 			throw new HTTPException(StatusCodes.BAD_REQUEST, "Data is required");
 
@@ -41,6 +40,8 @@ class EventCenterBookingService {
 				"Event center not found"
 			);
 
+		event_center.status = "booked";
+		await event_center.save();
 		const event = await this.eventService.getEventById(data.event);
 		if (!event)
 			throw new HTTPException(StatusCodes.BAD_REQUEST, "Event not found");
@@ -65,11 +66,21 @@ class EventCenterBookingService {
 	}
 
 	// get single event center booking by id
-	async getEventCenterBookingById(id: string): Promise<IEventCenterBooking> {
+	async getEventCenterBookingById(
+		id: string,
+		eventCenterId: string
+	): Promise<IEventCenterBooking> {
 		if (!id) throw new HTTPException(StatusCodes.BAD_REQUEST, "Id is required");
+
+		if (!eventCenterId)
+			throw new HTTPException(
+				StatusCodes.BAD_REQUEST,
+				"Event center id is required"
+			);
+
 		const eventCenterBooking = await this.eventCenterBookingModel
-			.findById(id)
-			.populate("event_center user event");
+			.findOne({ _id: id })
+			.populate("event_center user event entertainers");
 		if (!eventCenterBooking)
 			throw new HTTPException(
 				StatusCodes.NOT_FOUND,

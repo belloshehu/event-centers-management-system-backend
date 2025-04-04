@@ -26,7 +26,7 @@ class EventCenterBookingRoutes implements Routes {
 			this.eventCenterBookingController.getEventCenterBookings
 		);
 		this.router.get(
-			`${this.path}/:id`,
+			`${this.path}/:eventCenterId/:id`,
 			[authMiddleware],
 			this.eventCenterBookingController.getEventCenterBookingById
 		);
