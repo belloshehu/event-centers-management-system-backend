@@ -107,6 +107,7 @@ class EventCenterBookingController {
 				await this.eventCenterBookingService.getEventCenterBookings({
 					limit: limit ? parseInt(limit as string) : this.defaultLimit,
 					page: page ? parseInt(page as string) : this.defaultPage,
+					filter: req.query,
 				});
 			res.status(StatusCodes.OK).json({
 				data: eventCenterBookings,

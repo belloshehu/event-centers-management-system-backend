@@ -73,10 +73,10 @@ const EventCenterBookingSchema = new Schema<
 	{ timestamps: true }
 );
 
-const EventCenterBookingModel = model<IEventCenterBooking>(
-	"EventCenterBooking",
-	EventCenterBookingSchema
-);
+const EventCenterBookingModel = model<
+	IEventCenterBooking,
+	EventCenterBookingModelType
+>("EventCenterBooking", EventCenterBookingSchema);
 
 EventCenterBookingSchema.index(
 	{ event_center: 1, user: 1, event: 1 },

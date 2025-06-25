@@ -1,6 +1,7 @@
+import { TimeStamps } from "@/typing/util.typing";
 import { Document } from "mongoose";
 
-export interface IUser extends Document<any> {
+export interface IUser extends Document<any>, TimeStamps {
 	email: string;
 	password: string;
 	firstName: string;
@@ -8,5 +9,5 @@ export interface IUser extends Document<any> {
 	varified: boolean;
 	varificationToken?: string;
 	verificationTokenExpiresBy: number;
-	role: "admin" | "user";
+	role: "admin" | "user" | "partner";
 }

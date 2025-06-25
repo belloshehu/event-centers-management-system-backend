@@ -23,7 +23,7 @@ class UserController {
 
 	public getUsers = async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const users = await this.userService.getUsers();
+			const users = await this.userService.getUsers({ filter: req.query });
 			res.status(StatusCodes.OK).json({ data: users, message: "All users" });
 		} catch (error) {
 			console.log(error);

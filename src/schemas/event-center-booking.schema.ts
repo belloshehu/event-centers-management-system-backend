@@ -20,6 +20,19 @@ export const eventCenterBookingSchema = z.object({
 	entertainers: z.array(z.string()).optional(),
 });
 
+// schema for event center booking query params validation
+export const getEventCenterBookingsQueryValidationSchema = z.object({
+	availability: z.enum(["available", "booked", "all"]).optional(),
+	user: z.string().optional(),
+	event_center: z.string().optional(),
+	event: z.string().optional(),
+	booking_status: z.enum(["pending", "successful", "cancelled"]).optional(),
+	payment_status: z.enum(["pending", "successful", "failed"]).optional(),
+});
+
+export type IGetEventCenterBookingsQueryParams = z.infer<
+	typeof getEventCenterBookingsQueryValidationSchema
+>;
 export type IEventCenterBookingDataType = z.infer<
 	typeof eventCenterBookingSchema
 >;

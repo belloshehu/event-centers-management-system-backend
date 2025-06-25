@@ -1,7 +1,10 @@
 import HTTPException from "@/exceptions/http.exception";
 import { IEventCenterBooking } from "@/interfaces/event-center-booking.interface";
 import EventCenterBookingModel from "@/models/event-center-booking.models";
-import { IEventCenterBookingDataType } from "@/schemas/event-center-booking.schema";
+import {
+	IEventCenterBookingDataType,
+	IGetEventCenterBookingsQueryParams,
+} from "@/schemas/event-center-booking.schema";
 import { isEmpty } from "@/utils/util";
 import { StatusCodes } from "http-status-codes";
 import EventService from "./event.service";
@@ -54,15 +57,21 @@ class EventCenterBookingService {
 	async getEventCenterBookings({
 		limit,
 		page,
+		filter,
 	}: {
 		limit: number;
 		page: number;
+		filter?: IGetEventCenterBookingsQueryParams;
 	}): Promise<IEventCenterBooking[]> {
-		return await this.eventCenterBookingModel
-			.find()
+		console.log(filter, "newFilter");
+
+		const bookings = await this.eventCenterBookingModel
+			.find({ ...filter })
 			.skip((page - 1) * limit)
 			.limit(limit)
 			.populate("event_center user event");
+
+		return bookings;
 	}
 
 	// get single event center booking by id
@@ -87,6 +96,22 @@ class EventCenterBookingService {
 				"Event center booking not found"
 			);
 		return eventCenterBooking;
+	}
+
+	// get users event center bookings
+	async getUsersEventCenterBookings(
+		userId: string,
+		limit: number,
+		page: number
+	): Promise<IEventCenterBooking[]> {
+		if (!userId)
+			throw new HTTPException(StatusCodes.BAD_REQUEST, "user Id is required");
+		const eventCenterBookings = await this.eventCenterBookingModel
+			.find({ user: userId })
+			.skip((page - 1) * limit)
+			.limit(limit)
+			.populate("event_center user event entertainers");
+		return eventCenterBookings;
 	}
 
 	// update event center booking

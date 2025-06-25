@@ -4,7 +4,7 @@ import UserController from "@/controllers/user.controller";
 import authMiddleware from "@/middlewares/auth.middleware";
 
 class UserRoute implements Routes {
-	public path = "/user";
+	public path = "/users";
 	public userController = new UserController();
 	public router = Router();
 
