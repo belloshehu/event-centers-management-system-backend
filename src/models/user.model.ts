@@ -60,7 +60,6 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.getJWTToken = function (): TokenDataType {
-	console.log(parseInt(JWT_COOKIE_LIFETIME!));
 	const expiresIn = Date.now() + parseInt(JWT_COOKIE_LIFETIME!); // 24 hours
 	const token = jwt.sign({ _id: this._id }, JWT_SECRET as string, {
 		expiresIn, // two hours

@@ -65,10 +65,16 @@ const EventCenterSchema = new Schema<
 		},
 		status: {
 			type: String,
-			enum: ["active", "inactive", "booked", "pending", "available"],
-			default: "active",
+			enum: ["inactive", "booked", "pending", "available"],
+			default: "available",
+		},
+		currency: {
+			type: String,
+			enum: ["NGN", "USD"],
+			default: "NGN",
 		},
 	},
+
 	{ timestamps: true }
 );
 

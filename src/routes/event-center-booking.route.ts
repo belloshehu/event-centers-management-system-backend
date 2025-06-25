@@ -2,7 +2,10 @@ import EventCenterBookingController from "@/controllers/event-center-booking.con
 import { Routes } from "@/interfaces/route.interface";
 import authMiddleware from "@/middlewares/auth.middleware";
 import validationMiddleware from "@/middlewares/validation.middleware";
-import { eventCenterBookingSchema } from "@/schemas/event-center-booking.schema";
+import {
+	eventCenterBookingSchema,
+	getEventCenterBookingsQueryValidationSchema,
+} from "@/schemas/event-center-booking.schema";
 import { Router } from "express";
 
 class EventCenterBookingRoutes implements Routes {
@@ -22,7 +25,13 @@ class EventCenterBookingRoutes implements Routes {
 		);
 		this.router.get(
 			this.path,
-			[authMiddleware],
+			[
+				authMiddleware,
+				validationMiddleware(
+					getEventCenterBookingsQueryValidationSchema,
+					"query"
+				),
+			],
 			this.eventCenterBookingController.getEventCenterBookings
 		);
 		this.router.get(

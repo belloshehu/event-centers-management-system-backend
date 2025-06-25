@@ -9,3 +9,13 @@ export const createUserValidationSchema = z.object({
 });
 
 export type CreateUserDto = z.infer<typeof createUserValidationSchema>;
+
+// schema for user fetch filter
+export const userFetchFilterSchema = z.object({
+	verified: z.boolean().optional(),
+	role: z.enum(["user", "admin", "partner"]).optional(),
+	page: z.number().optional(),
+	limit: z.number().optional(),
+	search: z.string().optional(),
+});
+export type UserFetchFilterType = z.infer<typeof userFetchFilterSchema>;

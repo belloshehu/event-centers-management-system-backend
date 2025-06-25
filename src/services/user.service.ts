@@ -3,6 +3,7 @@ import HTTPException from "@/exceptions/http.exception";
 import { IUser } from "@/interfaces/user.interface";
 import UserModel from "@/models/user.model";
 import { isEmpty } from "@/utils/util";
+import { UserFetchFilterType } from "@/schemas/user.validation.schema";
 
 class UserService {
 	public userModel = UserModel;
@@ -28,8 +29,12 @@ class UserService {
 		return user;
 	};
 
-	public getUsers = async (): Promise<IUser[]> => {
-		const users = await this.userModel.find();
+	public getUsers = async ({
+		filter,
+	}: {
+		filter: UserFetchFilterType;
+	}): Promise<IUser[]> => {
+		const users = await this.userModel.find({ ...filter });
 		return users;
 	};
 
