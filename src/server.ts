@@ -8,6 +8,8 @@ import IndexRoute from "./routes/index.route";
 import EntertainerRoutes from "./routes/entertainer.route";
 import EventCenterBookingRoutes from "./routes/event-center-booking.route";
 import CatererRoutes from "./routes/caterer.route";
+import DishRoutes from "./routes/dish.route";
+import BeverageRoutes from "./routes/beverage.route";
 
 const application = new App([
 	new IndexRoute(),
@@ -18,6 +20,8 @@ const application = new App([
 	new EntertainerRoutes(),
 	new EventCenterBookingRoutes(),
 	new CatererRoutes(),
+	new DishRoutes(),
+	new BeverageRoutes(),
 ]);
 
 application.startServer();
