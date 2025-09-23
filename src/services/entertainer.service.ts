@@ -60,6 +60,18 @@ class EntertainerService {
 		return entertainer;
 	}
 
+	// get entertainer by user id
+	async getEntertainerByUserId(userId: string): Promise<IEntertainer> {
+		if (!userId)
+			throw new HTTPException(StatusCodes.BAD_REQUEST, "UserId is required");
+		const entertainer = await this.entertainmentModel
+			.findOne({ userId: userId.toString() })
+			.populate("userId", "name email firstName lastName", UserModel);
+		if (!entertainer)
+			throw new HTTPException(StatusCodes.NOT_FOUND, "Entertainer not found");
+		return entertainer;
+	}
+
 	// update entertainer
 	async updateEntertainer(
 		id: string,

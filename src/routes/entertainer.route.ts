@@ -40,6 +40,14 @@ class EntertainerRoutes implements Routes {
 			],
 			this.entertainerController.updateEntertainer
 		);
+
+		// route to get entertaining service owned by logged in user
+		this.router.get(
+			this.path + "/user/service",
+			authMiddleware,
+			this.entertainerController.getEntertainerByUserId
+		);
+
 		// delete entertainer route
 		this.router.delete(
 			this.path + "/:id",

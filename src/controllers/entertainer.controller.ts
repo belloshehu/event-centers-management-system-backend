@@ -70,6 +70,24 @@ class EntertainerController {
 		}
 	};
 
+	// get single entertainer by user id
+	public getEntertainerByUserId = async (
+		req: RequestWithUser,
+		res: Response,
+		next: NextFunction
+	) => {
+		try {
+			const entertainer = await this.entertainerService.getEntertainerByUserId(
+				req.user?._id
+			);
+			res
+				.status(StatusCodes.OK)
+				.json({ data: entertainer, message: "Entertainer by user id" });
+		} catch (error) {
+			next(error);
+		}
+	};
+
 	// update entertainer
 	public updateEntertainer = async (
 		req: Request,

@@ -7,6 +7,7 @@ import EventRoutes from "@/routes/event.route";
 import IndexRoute from "./routes/index.route";
 import EntertainerRoutes from "./routes/entertainer.route";
 import EventCenterBookingRoutes from "./routes/event-center-booking.route";
+import CatererRoutes from "./routes/caterer.route";
 
 const application = new App([
 	new IndexRoute(),
@@ -16,6 +17,7 @@ const application = new App([
 	new EventRoutes(),
 	new EntertainerRoutes(),
 	new EventCenterBookingRoutes(),
+	new CatererRoutes(),
 ]);
 
 application.startServer();
