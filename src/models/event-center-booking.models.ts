@@ -69,6 +69,18 @@ const EventCenterBookingSchema = new Schema<
 			required: false,
 			default: [],
 		},
+		beveragesOrder: {
+			type: [Schema.Types.ObjectId],
+			required: false,
+			default: [],
+			ref: "BeverageOrder",
+		}, // array of beverage added to the event booking with quantity
+		dishesOrder: {
+			type: [Schema.Types.ObjectId],
+			required: false,
+			default: [],
+			ref: "DishOrder",
+		}, // array of dishes added to the event booking with quantity
 	},
 	{ timestamps: true }
 );

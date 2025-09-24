@@ -12,6 +12,16 @@ export interface IBeverage extends Document<any>, TimeStamps {
 	available: boolean;
 }
 
+export interface IBeverageOrder extends Document<any>, TimeStamps {
+	beverage: Schema.Types.ObjectId;
+	quantity: number;
+	cost: number;
+	orderDate: Date;
+	user: Schema.Types.ObjectId;
+	status: "pending" | "completed" | "cancelled";
+	event?: Schema.Types.ObjectId;
+}
+
 export interface IBeverageMethods {
 	getBeverage: (id: string) => Promise<IBeverage | null>;
 	getBeverages: () => Promise<IBeverage[]>;

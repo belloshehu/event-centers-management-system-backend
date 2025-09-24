@@ -14,4 +14,6 @@ export interface IEventCenterBooking extends Document<any>, TimeStamps {
 	payment_method: "card" | "bank" | "cash";
 	payment_description?: string;
 	entertainers?: Schema.Types.ObjectId[];
+	beveragesOrder?: Schema.Types.ObjectId[];
+	dishesOrder?: Schema.Types.ObjectId[];
 }

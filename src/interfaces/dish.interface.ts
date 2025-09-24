@@ -12,6 +12,17 @@ export interface IDish extends Document<any>, TimeStamps {
 	available: boolean;
 }
 
+// interface for dish order model
+export interface IDishOrder extends Document<any>, TimeStamps {
+	dish: Schema.Types.ObjectId;
+	quantity: number;
+	cost: number;
+	orderDate: Date;
+	user: Schema.Types.ObjectId;
+	status: "pending" | "completed" | "cancelled";
+	event?: Schema.Types.ObjectId;
+}
+
 export interface IDishMethods {
 	getDish: (id: string) => Promise<IDish | null>;
 	getDishs: () => Promise<IDish[]>;

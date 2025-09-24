@@ -10,12 +10,16 @@ import { StatusCodes } from "http-status-codes";
 import EventService from "./event.service";
 import EventCenterService from "./event-center.service";
 import EntertainerService from "./entertainer.service";
+import DishService from "./dish.service";
+import BeverageService from "./beverage.service";
 
 class EventCenterBookingService {
 	private eventCenterBookingModel = EventCenterBookingModel;
 	private eventCenterService = new EventCenterService();
 	private eventService = new EventService();
 	private entertainerService = new EntertainerService();
+	private dishService = new DishService();
+	private beverageService = new BeverageService();
 
 	// create event center booking
 	async createEventCenterBooking(
@@ -49,7 +53,31 @@ class EventCenterBookingService {
 		if (!event)
 			throw new HTTPException(StatusCodes.BAD_REQUEST, "Event not found");
 
-		const eventCenterBooking = await this.eventCenterBookingModel.create(data);
+		// create order for dishes if dishes are selected
+		let dishesOrder = null;
+		if (data.dishes && data.dishes.length > 0) {
+			dishesOrder = await this.dishService.orderDishes(
+				data.event,
+				data.dishes,
+				data.user
+			);
+		}
+
+		// create order for beverages if beverages are selected
+		let beveragesOrder = null;
+		if (data.beverages && data.beverages.length > 0) {
+			beveragesOrder = await this.beverageService.orderBeverages(
+				data.event,
+				data.beverages,
+				data.user
+			);
+		}
+
+		const eventCenterBooking = await this.eventCenterBookingModel.create({
+			data,
+			beveragesOrder,
+			dishesOrder,
+		});
 		return eventCenterBooking;
 	}
 
