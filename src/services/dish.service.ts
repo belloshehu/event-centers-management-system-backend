@@ -1,12 +1,13 @@
 import HTTPException from "@/exceptions/http.exception";
-import { IDish } from "@/interfaces/dish.interface";
-import DishModel from "@/models/dish.model";
+import { IDish, IDishOrder } from "@/interfaces/dish.interface";
+import DishModel, { DishOrderModel } from "@/models/dish.model";
 import { IDishDataType } from "@/schemas/dish.validation.schema";
 import { isEmpty } from "@/utils/util";
 import { StatusCodes } from "http-status-codes";
 
 class DishService {
 	public dishModel = DishModel;
+	private dishOrderModel = DishOrderModel;
 
 	// method to create dish
 	async createDish(data: IDishDataType, catererId: string): Promise<IDish> {
@@ -80,6 +81,60 @@ class DishService {
 		const dish = await this.dishModel.findByIdAndDelete(id);
 		if (!dish) throw new HTTPException(StatusCodes.NOT_FOUND, "Dish not found");
 		return dish;
+	}
+
+	// method for placing an order for a dish for an event
+	async orderDishes(
+		eventId: string,
+		dishes: { id: string; quantity: number }[],
+		userId: string
+	): Promise<IDishOrder[]> {
+		if (isEmpty(eventId)) {
+			throw new HTTPException(StatusCodes.BAD_REQUEST, "Event ID is required");
+		}
+		if (!dishes || dishes.length === 0) {
+			throw new HTTPException(
+				StatusCodes.BAD_REQUEST,
+				"dish orders are required"
+			);
+		}
+
+		if (isEmpty(userId))
+			throw new HTTPException(StatusCodes.BAD_REQUEST, "UserId is required");
+		let orders = [];
+		// create order for each dish
+		for (const dishOrder of dishes) {
+			const dish = await this.dishModel.findById(dishOrder.id);
+			if (!dish) {
+				throw new HTTPException(
+					StatusCodes.NOT_FOUND,
+					`dish with ID ${dishOrder.id} not found`
+				);
+			}
+			if (dishOrder.quantity <= 0) {
+				throw new HTTPException(
+					StatusCodes.BAD_REQUEST,
+					`Invalid quantity for dish ID ${dishOrder.id}`
+				);
+			}
+			const totalCost = dish.price * dishOrder.quantity;
+			const newOrder = await this.dishOrderModel.create({
+				event: eventId,
+				dish: dish._id,
+				quantity: dishOrder.quantity,
+				cost: totalCost,
+				user: userId,
+			});
+			if (!newOrder) {
+				throw new HTTPException(
+					StatusCodes.INTERNAL_SERVER_ERROR,
+					`Failed to create order for dish ID ${dishOrder.id}`
+				);
+			}
+			orders.push(newOrder);
+		}
+
+		return orders;
 	}
 }
 

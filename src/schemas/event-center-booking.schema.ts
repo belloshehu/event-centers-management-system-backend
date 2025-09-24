@@ -18,6 +18,12 @@ export const eventCenterBookingSchema = z.object({
 	payment_method: z.enum(["card", "bank", "cash"]).optional(),
 	payment_description: z.string().optional(),
 	entertainers: z.array(z.string()).optional(),
+	beverages: z
+		.array(z.object({ id: z.string(), quantity: z.number() }))
+		.optional(), // array of beverage added to the event booking with quantity
+	dishes: z
+		.array(z.object({ id: z.string(), quantity: z.number() }))
+		.optional(), // array of dishes added to the event booking with quantity
 });
 
 // schema for event center booking query params validation
